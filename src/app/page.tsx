@@ -96,46 +96,66 @@ function Scene() {
 // ====== DATA ======
 const PROJECTS = [
   {
-    title: "E-Commerce Order Database (2023)",
-    summary: "Designed and implemented a normalized SQL database. Wrote 40+ queries for analytics and business insights.",
+    title: "Unnati — Farmer Trust, Credit & Transparency Platform",
+    summary: "Full-stack platform with role-based dashboards (farmer, buyer, government, bank, admin) covering trust scoring, loan eligibility, marketplace, complaints, and government schemes, with a bilingual Hindi/English AI assistant (Gemini-backed).",
     href: "#",
-    tags: ["SQL", "Database", "Reports"],
+    tags: ["Django REST", "Next.js 15", "PostgreSQL", "TypeScript"],
   },
   {
-    title: "Cinescope (2024)",
-    summary: "Full-stack Django movie app with authentication, listings, ratings, and reviews. Styled with Bootstrap, integrated MySQL backend.",
+    title: "AI Writing Assistant",
+    summary: "Full-stack AI writing assistant with a Django REST API backend, React frontend, and JWT-based authentication for secure user sessions and content generation workflows.",
     href: "#",
-    tags: ["Django", "Bootstrap", "MySQL"],
+    tags: ["Django", "React", "REST API", "JWT"],
   },
   {
-    title: "MiniLang (2024)",
-    summary: "Built a toy interpreter with recursive descent parsing & AST evaluation. Inspired by compiler design.",
+    title: "CineScope — Movie Rating & Review Platform",
+    summary: "Full-stack movie discovery platform (200+ users) with 15+ APIs for ratings, auth, reviews, and recommendations; boosted query performance 30% via Django ORM.",
     href: "#",
-    tags: ["C++", "Parsing", "Compilers"],
+    tags: ["Django", "MySQL", "HTML", "Bootstrap"],
   },
   {
-    title: "Threaded File Crawler (2025)",
-    summary: "Multi-threaded filesystem indexer using POSIX APIs & C++ threading for metadata extraction.",
+    title: "JobMail Tracker",
+    summary: "Intelligent job-application email tracker integrating the Gmail and Google Sheets APIs with OAuth 2.0, using smart filtering to automatically log and organize job-search emails.",
     href: "#",
-    tags: ["C++", "Threads", "System Programming"],
+    tags: ["Python", "Gmail API", "Google Sheets API", "OAuth 2.0"],
+  },
+  {
+    title: "Sales Intelligence Dashboard",
+    summary: "Interactive sales dashboard tracking revenue, profit, category performance, and monthly KPIs across 20k+ transactions, surfacing top-performing products and weak sales regions.",
+    href: "#",
+    tags: ["Power BI", "Excel", "SQL"],
+  },
+  {
+    title: "Customer Segmentation using K-Means",
+    summary: "Applied clustering techniques to segment customers by spending and behavior, creating targeted groups for marketing and retention strategies.",
+    href: "#",
+    tags: ["Python", "Scikit-learn", "Pandas"],
   },
 ];
 
 const SKILLS = [
-  { name: "Python", icon: <Code className="w-5 h-5" />, desc: "Scripting, ML, data tooling." },
-  { name: "SQL", icon: <Database className="w-5 h-5" />, desc: "Queries, design, EDA." },
-  { name: "C++", icon: <Swords className="w-5 h-5" />, desc: "DSA & system-level programming." },
-  { name: "Data Tools", icon: <Shield className="w-5 h-5" />, desc: "Pandas, NumPy, Tableau, Power BI." },
-  { name: "Web Dev", icon: <Ship className="w-5 h-5" />, desc: "React, Django, Bootstrap, Tailwind." },
-  { name: "Version Control", icon: <AnchorIcon className="w-5 h-5" />, desc: "Git, GitHub, teamwork." },
+  { name: "Python", icon: <Code className="w-5 h-5" />, desc: "Scripting, data tooling, automation." },
+  { name: "SQL", icon: <Database className="w-5 h-5" />, desc: "PostgreSQL, MySQL, MongoDB, Redis." },
+  { name: "Backend", icon: <Shield className="w-5 h-5" />, desc: "Django, DRF, FastAPI, REST APIs, JWT, RBAC." },
+  { name: "Frontend", icon: <Ship className="w-5 h-5" />, desc: "React, Next.js, TypeScript, Tailwind CSS." },
+  { name: "Data & Analytics", icon: <Swords className="w-5 h-5" />, desc: "Pandas, NumPy, Power BI, Excel, EDA." },
+  { name: "Dev Tools & Cloud", icon: <AnchorIcon className="w-5 h-5" />, desc: "Git, GitHub, Docker, Linux, Jupyter." },
+];
+
+const EXPERIENCE = [
+  { role: "Full Stack Developer", org: "ElevateCareer.ai", period: "May 2026 – Present", desc: "Building AI-powered career development platform — Coder Arena game modules, Communication Studio, XP/leaderboard APIs, and core product surfaces." },
+  { role: "Backend Developer", org: "Bhumi Tech Pvt. Ltd.", period: "Dec 2025 – May 2026", desc: "Developed and scaled an LMS with 15+ modules; automated monthly reports, cutting manual effort by 70%." },
+  { role: "Data Analytics Intern", org: "Cognetix Technology", period: "Jul 2025 – Dec 2025", desc: "Processed 15k+ records, built analytics pipelines and dashboards, improving reporting efficiency by 35%." },
+  { role: "Software Intern", org: "Yhills Data Tech", period: "Aug 2024 – Jan 2025", desc: "Delivered SQL training, built Python + SQL CRUD apps, and tuned queries to cut execution time 30–40%." },
+  { role: "Frontend Developer Intern", org: "Luneblaze", period: "Jan 2023 – Nov 2023", desc: "Debugged and enhanced features for a learning platform, reducing system bugs by 20%." },
 ];
 
 const CERTS = [
-  "Full Stack Web Development – Udemy (May 2025)",
-  "SQL Server – Udemy (May 2025)",
-  "Python Bootcamp – Infosys Springboard (Aug 2024)",
-  "Machine Learning & Deep Learning Specialization – Udemy (Dec 2024)",
-  "Data Management & Deep Learning – Coursera (Jan 2024)",
+  "Python Certification – Infosys Springboard",
+  "Data Analytics Certification – Infosys Springboard",
+  "SQL Certification – Udemy",
+  "Solved 150+ Data Structures & Algorithms problems across LeetCode and CodeChef.",
+  "Built 10+ production modules at ElevateCareer.ai; strong grasp of system design and scalability.",
 ];
 
 
@@ -182,8 +202,9 @@ export default function PiratePortfolio() {
             </motion.h1>
             <motion.p initial={{opacity: 0, y: 20}} animate={{opacity: 1, y: 0}} transition={{duration: 0.7, delay: 0.1}}
               className="mt-3 text-stone-300">
-              I'm <span className="text-yellow-300 font-semibold">Yash Raj Sharma</span>, a 4th-year B.Tech CSE student at YMCA University, Faridabad (CGPA 8.0).  
-              Passionate about <b>interpreters, databases, full-stack development, and open source</b>.
+              I'm <span className="text-yellow-300 font-semibold">Yash Raj Sharma</span>, a Full Stack Developer building AI-powered web applications
+              with Python, Django, React/Next.js, REST APIs, and SQL databases. Currently a B.Tech CSE student at J.C. Bose University of Science
+              and Technology, Faridabad (CGPA 8.2). Passionate about <b>full-stack development, AI integrations, and data analytics</b>.
             </motion.p>
             <div className="mt-6 grid grid-cols-2 gap-4 text-sm text-stone-300">
               <div className="flex items-center gap-2"><Compass className="w-4 h-4 text-yellow-300"/>Faridabad, IN</div>
@@ -201,10 +222,12 @@ export default function PiratePortfolio() {
         <div className="p-5 rounded-3xl bg-white/5 ring-1 ring-white/10">
           <h2 className="text-xl font-extrabold flex items-center gap-2"><Map className="w-5 h-5 text-yellow-400"/> Captain's Log</h2>
           <ul className="mt-4 text-sm space-y-2">
-            <li>🎓 B.Tech Computer Science, YMCA University, Faridabad (2022–2026)</li>
-            <li>⚔️ Software Intern @ Luneblaze (Jan–Aug 2023) — optimized platform features & performance.</li>
-            <li>🗺️ Course Creator @ Yhills Education (Jul–Dec 2024) — authored 20hr SQL course (MySQL, PostgreSQL, SQLite, Oracle).</li>
-            <li>⚡ Open-source contributor — MariaDB, PostgreSQL, EvalAI projects.</li>
+            <li>🎓 B.Tech Computer Science Engineering, J.C. Bose University of Science and Technology, Faridabad (Aug 2022 – 2026), CGPA 8.2</li>
+            {EXPERIENCE.map((e) => (
+              <li key={e.role + e.org}>
+                ⚔️ <span className="font-semibold text-yellow-200">{e.role}</span> @ {e.org} <span className="text-stone-400">({e.period})</span> — {e.desc}
+              </li>
+            ))}
           </ul>
         </div>
       </section>
