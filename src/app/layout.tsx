@@ -1,21 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = Geist({
+const geist = localFont({
+  src: "../../node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2",
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
+  weight: "100 900",
 });
 
 export const metadata: Metadata = {
-  title: "Yash Raj Sharma — Full Stack Developer",
+  title: "Yash Raj Sharma | Full-Stack Developer",
   description:
-    "Portfolio of Yash Raj Sharma, a Full Stack Developer skilled in Python, Django, React/Next.js, and SQL, building AI-powered web applications.",
+    "Yash Raj Sharma builds useful digital products across product interfaces, backend systems, and data platforms.",
+  keywords: [
+    "Yash Raj Sharma",
+    "full-stack developer",
+    "Django",
+    "Next.js",
+    "TypeScript",
+    "Python",
+  ],
 };
 
 export default function RootLayout({
@@ -25,11 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <body className={geist.variable}>{children}</body>
     </html>
   );
 }
