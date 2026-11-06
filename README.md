@@ -2,6 +2,8 @@
 
 Personal portfolio for Yash Raj Sharma, a full-stack developer working across product interfaces, backend systems, and data platforms.
 
+**Live portfolio:** [my-portfolio-ten-tau-95.vercel.app](https://my-portfolio-ten-tau-95.vercel.app)
+
 ## Stack
 
 - Next.js App Router and React
@@ -34,4 +36,4 @@ npm run build
 
 ## Deploy on Vercel
 
-Import `YashRaJShaRMaCODE/MYPortfolio` into the personal Vercel account and deploy with the Next.js preset. Set `NEXT_PUBLIC_SITE_URL` to the production HTTPS URL so canonical, Open Graph, sitemap, and robots links use the stable address. Pull requests run lint, type checks, and a production build in GitHub Actions.
+Import `YashRaJShaRMaCODE/MYPortfolio` into the personal Vercel account and deploy with the Next.js preset. Vercel's stable production URL is used automatically for canonical, Open Graph, sitemap, and robots links. Set `NEXT_PUBLIC_SITE_URL` only when using a custom domain. Pull requests run lint, type checks, a production build, and a production dependency audit in GitHub Actions.

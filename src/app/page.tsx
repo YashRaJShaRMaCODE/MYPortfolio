@@ -153,22 +153,28 @@ export default function PortfolioPage() {
           </div>
 
           <div className="project-grid">
-            {projects.map((project) => (
+            {projects.map((project, index) => (
               <article className="project" key={project.name}>
                 <div className="project-topline">
+                  <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
                   <span>{project.type}</span>
+                </div>
+                <h3>{project.name}</h3>
+                <p>{project.description}</p>
+                <div className="project-footer">
+                  <span className="project-stack">{project.stack}</span>
                   <a
-                    aria-label={`View ${project.name} on GitHub`}
+                    aria-label={`View ${project.name} source code on GitHub`}
+                    className="project-link"
                     href={project.href}
                     rel="noreferrer"
                     target="_blank"
                   >
-                    <ArrowUpRight aria-hidden="true" size={18} />
+                    <Github aria-hidden="true" size={15} />
+                    View source
+                    <ArrowUpRight aria-hidden="true" size={15} />
                   </a>
                 </div>
-                <h3>{project.name}</h3>
-                <p>{project.description}</p>
-                <span className="project-stack">{project.stack}</span>
               </article>
             ))}
           </div>
