@@ -25,11 +25,11 @@ const projects = [
     href: "https://github.com/YashRaJShaRMaCODE/unnati-farmer-platform",
   },
   {
-    name: "AI Writing Assistant",
-    type: "Writing tool",
+    name: "Clear Writing",
+    type: "Writing workspace",
     description:
-      "A full-stack tool for rewriting and summarizing text, with a Django REST API and a focused React interface.",
-    stack: "Django · React · REST API",
+      "A focused workspace for rewriting or summarising professional drafts through a Django API and Gemini.",
+    stack: "Django · React · Gemini API",
     href: "https://github.com/YashRaJShaRMaCODE/ai-writing-assistant",
   },
   {
@@ -39,6 +39,14 @@ const projects = [
       "A movie discovery and review experience with searchable titles, useful filters, ratings, and curated collections.",
     stack: "Django · MySQL · JavaScript",
     href: "https://github.com/YashRaJShaRMaCODE/Cinescope",
+  },
+  {
+    name: "JobMail Tracker",
+    type: "Inbox automation",
+    description:
+      "Turns job-related Gmail messages into duplicate-safe Google Sheets records, with focused filtering and OAuth access.",
+    stack: "Python · Gmail API · Google Sheets API",
+    href: "https://github.com/YashRaJShaRMaCODE/JobMail-tracker",
   },
 ];
 
@@ -81,6 +89,7 @@ const capabilities = [
 export default function PortfolioPage() {
   return (
     <main id="top">
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <header className="site-header">
         <a aria-label="Yash Raj Sharma, home" className="wordmark" href="#top">
           YS<span>.</span>
@@ -95,15 +104,15 @@ export default function PortfolioPage() {
         </a>
       </header>
 
-      <section aria-labelledby="hero-title" className="hero section-wrap">
+      <section aria-labelledby="hero-title" className="hero section-wrap" id="main-content">
         <div className="hero-copy">
           <p className="eyebrow">Full-stack developer · Product builder</p>
           <h1 id="hero-title">
-            I build <em>useful software</em> from interface to infrastructure.
+            I build <em>useful software.</em>
           </h1>
           <p className="hero-summary">
-            I’m Yash Raj Sharma, building clear product interfaces and dependable
-            backend systems for real user needs.
+            I’m Yash Raj Sharma. I turn real problems into clear interfaces,
+            dependable systems, and shipped products.
           </p>
           <div className="hero-actions">
             <a className="button button-dark" href="#work">
