@@ -2,7 +2,7 @@
 
 Personal portfolio for Yash Raj Sharma, a full-stack developer working across product interfaces, backend systems, and data platforms.
 
-**Live portfolio:** [my-portfolio-ten-tau-95.vercel.app](https://my-portfolio-ten-tau-95.vercel.app)
+**Live portfolio:** [my-portfolio-yash-raj-sharmas-projects-c76761bc.vercel.app](https://my-portfolio-yash-raj-sharmas-projects-c76761bc.vercel.app)
 
 ## Stack
 
