@@ -2,6 +2,8 @@
 
 Personal portfolio for Yash Raj Sharma, a full-stack developer working across product interfaces, backend systems, and data platforms.
 
+**Live portfolio:** [my-portfolio-ten-tau-95.vercel.app](https://my-portfolio-ten-tau-95.vercel.app)
+
 ## Stack
 
 - Next.js App Router and React
