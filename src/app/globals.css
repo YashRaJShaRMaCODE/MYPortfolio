@@ -272,6 +272,7 @@ a:focus-visible {
 }
 
 .project {
+  position: relative;
   display: flex;
   min-height: 310px;
   flex-direction: column;
@@ -286,9 +287,27 @@ a:focus-visible {
   animation-range: entry 0% entry 32%;
 }
 
+.project::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  background: var(--accent);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 280ms cubic-bezier(.2,.7,.2,1);
+}
+
 .project:hover,
 .project:focus-within {
   transform: translateX(5px);
+}
+
+.project:hover::after,
+.project:focus-within::after {
+  transform: scaleX(1);
 }
 
 .project:nth-child(2) { animation-delay: 90ms; }
@@ -297,31 +316,16 @@ a:focus-visible {
 
 .project-topline {
   width: 100%;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 14px;
   color: var(--muted);
   font-size: 0.7rem;
   letter-spacing: 0.02em;
 }
 
-.project-topline a {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 auto;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  color: var(--ink);
-  transition: color 160ms ease, background 160ms ease, transform 180ms ease;
-}
-
-.project-topline a:hover,
-.project-topline a:focus-visible {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--white);
-  transform: translate(2px, -2px);
+.project-index {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
 }
 
 .project h3 {
@@ -339,11 +343,42 @@ a:focus-visible {
   line-height: 1.7;
 }
 
-.project-stack {
+.project-footer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   margin-top: auto;
   padding-top: 28px;
+}
+
+.project-stack {
   color: var(--muted);
   font-size: 0.74rem;
+}
+
+.project-link {
+  display: inline-flex;
+  min-height: 44px;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.project-link svg:last-child {
+  transition: transform 180ms ease;
+}
+
+.project-link:hover {
+  color: var(--accent);
+}
+
+.project-link:hover svg:last-child {
+  transform: translate(2px, -2px);
 }
 
 .experience-section {
@@ -593,6 +628,10 @@ a:focus-visible {
 
   .project {
     min-height: 270px;
+  }
+
+  .project-footer {
+    flex-wrap: wrap;
   }
 
   .experience-row {
