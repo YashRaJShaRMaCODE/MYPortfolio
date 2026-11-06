@@ -28,6 +28,10 @@ Edit `src/app/page.tsx` to update selected projects, experience, capabilities, c
 
 ```bash
 npm run lint
-npx tsc --noEmit
+npm run typecheck
 npm run build
 ```
+
+## Deploy on Vercel
+
+Import `YashRaJShaRMaCODE/MYPortfolio` into the personal Vercel account and deploy with the Next.js preset. Set `NEXT_PUBLIC_SITE_URL` to the production HTTPS URL so canonical, Open Graph, sitemap, and robots links use the stable address. Pull requests run lint, type checks, and a production build in GitHub Actions.
