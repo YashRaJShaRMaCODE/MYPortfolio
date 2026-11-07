@@ -49,6 +49,12 @@ a:focus-visible {
   outline-offset: 4px;
 }
 
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .section-wrap {
   width: min(1160px, calc(100% - 64px));
   margin-inline: auto;
@@ -161,8 +167,9 @@ a:focus-visible {
 
 .hero h1 em {
   color: var(--accent);
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 400;
+  font-family: inherit;
+  font-weight: 620;
+  font-style: italic;
   letter-spacing: -0.075em;
 }
 
@@ -229,6 +236,44 @@ a:focus-visible {
   background: #101b22;
 }
 
+.hero-visual figcaption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 14px;
+  padding-inline: 16px;
+  background: rgb(16 27 34 / 88%);
+  color: var(--white);
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+}
+
+.hero-visual figcaption span {
+  color: #b8c9ff;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-note {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+}
+
+.hero-note span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
 .hero-image {
   object-fit: cover;
   object-position: center;
@@ -246,6 +291,120 @@ a:focus-visible {
   justify-content: space-between;
   gap: 30px;
   margin-bottom: 40px;
+}
+
+.work-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 12px;
+}
+
+.work-filters,
+.project-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-button,
+.project-search,
+.utility-button {
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.76rem;
+}
+
+.filter-button {
+  padding: 0 13px;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.filter-button:hover,
+.filter-button[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--white);
+}
+
+.project-search {
+  display: flex;
+  min-width: min(260px, 100%);
+  align-items: center;
+  gap: 9px;
+  padding-inline: 12px;
+  color: var(--muted);
+}
+
+.project-search:focus-within {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.project-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.76rem;
+}
+
+.project-search input::placeholder {
+  color: var(--muted);
+}
+
+.project-search button,
+.empty-projects button {
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.result-count {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.empty-projects {
+  display: flex;
+  min-height: 200px;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.empty-projects p {
+  margin: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .section-heading h2,
@@ -367,6 +526,11 @@ a:focus-visible {
   color: var(--ink);
   font-size: 0.78rem;
   font-weight: 650;
+}
+
+.project-links .project-link {
+  min-height: 38px;
+  padding: 0 4px;
 }
 
 .project-link svg:last-child {
@@ -505,6 +669,22 @@ a:focus-visible {
   transition: color 160ms ease;
 }
 
+.utility-button {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 8px;
+  margin-top: 15px;
+  padding: 0 12px;
+  cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease;
+}
+
+.utility-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .footer-links {
   display: flex;
   flex-direction: column;
@@ -622,6 +802,25 @@ a:focus-visible {
     margin-bottom: 28px;
   }
 
+  .work-tools {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .work-filters {
+    gap: 7px;
+  }
+
+  .filter-button {
+    min-height: 40px;
+    padding-inline: 10px;
+  }
+
+  .project-search {
+    min-height: 46px;
+  }
+
   .project-grid {
     grid-template-columns: 1fr;
   }
@@ -632,6 +831,10 @@ a:focus-visible {
 
   .project-footer {
     flex-wrap: wrap;
+  }
+
+  .project-links {
+    width: 100%;
   }
 
   .experience-row {
