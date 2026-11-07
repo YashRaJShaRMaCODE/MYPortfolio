@@ -6,15 +6,20 @@ import {
   Linkedin,
   Mail,
 } from "lucide-react";
+import WorkShelf, { type PortfolioProject } from "../components/work-shelf";
+import { CopyEmail, SharePortfolio } from "../components/portfolio-actions";
+import { siteUrl } from "../lib/site";
 
-const projects = [
+const projects: PortfolioProject[] = [
   {
     name: "SUB/WAVE",
     type: "Live radio platform",
     description:
       "A self-hosted radio station where every listener hears the same broadcast, guided by an AI DJ and a shared request queue.",
     stack: "TypeScript · Next.js · Liquidsoap",
+    category: "Media",
     href: "https://github.com/YashRaJShaRMaCODE/nightshift-radio",
+    liveHref: "https://nightshift-radio-orpin.vercel.app",
   },
   {
     name: "UNNATI",
@@ -22,7 +27,9 @@ const projects = [
     description:
       "A bilingual platform for farmer trust and financial access, with focused tools for farmers, buyers, banks, and public agencies.",
     stack: "Django REST · Next.js · PostgreSQL",
+    category: "Platforms",
     href: "https://github.com/YashRaJShaRMaCODE/unnati-farmer-platform",
+    liveHref: "https://unnati-farmer-platform.vercel.app",
   },
   {
     name: "Clear Writing",
@@ -30,7 +37,9 @@ const projects = [
     description:
       "A focused workspace for rewriting or summarising professional drafts through a Django API and Gemini.",
     stack: "Django · React · Gemini API",
+    category: "AI & writing",
     href: "https://github.com/YashRaJShaRMaCODE/ai-writing-assistant",
+    liveHref: "https://clear-writing-studio.onrender.com",
   },
   {
     name: "CineScope",
@@ -38,6 +47,7 @@ const projects = [
     description:
       "A movie discovery and review experience with searchable titles, useful filters, ratings, and curated collections.",
     stack: "Django · MySQL · JavaScript",
+    category: "Media",
     href: "https://github.com/YashRaJShaRMaCODE/Cinescope",
   },
   {
@@ -46,6 +56,7 @@ const projects = [
     description:
       "Turns job-related Gmail messages into duplicate-safe Google Sheets records, with focused filtering and OAuth access.",
     stack: "Python · Gmail API · Google Sheets API",
+    category: "Automation",
     href: "https://github.com/YashRaJShaRMaCODE/JobMail-tracker",
   },
 ];
@@ -87,8 +98,26 @@ const capabilities = [
 ];
 
 export default function PortfolioPage() {
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Yash Raj Sharma",
+    jobTitle: "Full-Stack Developer",
+    url: siteUrl.toString(),
+    email: "mailto:yashrajsharma786jmd@gmail.com",
+    sameAs: [
+      "https://github.com/YashRaJShaRMaCODE",
+      "https://www.linkedin.com/in/yash-raj-sharma-4627bb212",
+    ],
+    knowsAbout: ["Product engineering", "Backend systems", "Data platforms"],
+  };
+
   return (
     <main id="top">
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        type="application/ld+json"
+      />
       <a className="skip-link" href="#main-content">Skip to content</a>
       <header className="site-header">
         <a aria-label="Yash Raj Sharma, home" className="wordmark" href="#top">
@@ -122,6 +151,7 @@ export default function PortfolioPage() {
               Download résumé <ArrowUpRight aria-hidden="true" size={15} />
             </a>
           </div>
+          <p className="hero-note"><span aria-hidden="true" /> Selected work · 2024—26</p>
         </div>
         <figure className="hero-visual">
           <Image
@@ -132,6 +162,7 @@ export default function PortfolioPage() {
             sizes="(max-width: 760px) 100vw, 44vw"
             src="/projects/subwave-dashboard.webp"
           />
+          <figcaption><span>01 / 05</span> SUB/WAVE · live radio platform</figcaption>
         </figure>
       </section>
 
@@ -152,32 +183,7 @@ export default function PortfolioPage() {
             </a>
           </div>
 
-          <div className="project-grid">
-            {projects.map((project, index) => (
-              <article className="project" key={project.name}>
-                <div className="project-topline">
-                  <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
-                  <span>{project.type}</span>
-                </div>
-                <h3>{project.name}</h3>
-                <p>{project.description}</p>
-                <div className="project-footer">
-                  <span className="project-stack">{project.stack}</span>
-                  <a
-                    aria-label={`View ${project.name} source code on GitHub`}
-                    className="project-link"
-                    href={project.href}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    <Github aria-hidden="true" size={15} />
-                    View source
-                    <ArrowUpRight aria-hidden="true" size={15} />
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
+          <WorkShelf projects={projects} />
         </div>
       </section>
 
@@ -229,6 +235,7 @@ export default function PortfolioPage() {
           <a className="email-link" href="mailto:yashrajsharma786jmd@gmail.com">
             yashrajsharma786jmd@gmail.com <ArrowUpRight aria-hidden="true" size={18} />
           </a>
+          <CopyEmail email="yashrajsharma786jmd@gmail.com" />
         </div>
         <div className="footer-links">
           <a href="https://github.com/YashRaJShaRMaCODE" rel="noreferrer" target="_blank">
@@ -240,6 +247,7 @@ export default function PortfolioPage() {
           <a href="mailto:yashrajsharma786jmd@gmail.com">
             <Mail aria-hidden="true" size={17} /> Email
           </a>
+          <SharePortfolio />
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Yash Raj Sharma</span>

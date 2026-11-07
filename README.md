@@ -1,6 +1,6 @@
-# Yash Raj Sharma — Portfolio
+# Yash Raj Sharma | Full-Stack Developer
 
-Personal portfolio for Yash Raj Sharma, a full-stack developer working across product interfaces, backend systems, and data platforms.
+Personal portfolio for Yash Raj Sharma, focused on shipped products, engineering experience, and a direct contact path.
 
 **Live portfolio:** [my-portfolio-yash-raj-sharmas-projects-c76761bc.vercel.app](https://my-portfolio-yash-raj-sharmas-projects-c76761bc.vercel.app)
 
@@ -12,6 +12,82 @@ Personal portfolio for Yash Raj Sharma, a full-stack developer working across pr
 - Lucide icons
 
 The portfolio uses server-rendered content and lightweight CSS. The 3D scene and animation packages from the starter version have been removed to keep the page quick to load and easy to maintain.
+
+## Portfolio features
+
+### Productivity
+
+1. Search by project name.
+2. Search by project type.
+3. Search project descriptions.
+4. Search technology stacks.
+5. Filter work by category.
+6. See the live result count.
+7. Clear the search in one action.
+8. Reset category and search together after an empty result.
+9. Open verified live project demos from the work list.
+10. Open each project’s personal GitHub source.
+11. Download the résumé directly.
+12. Jump to selected work from the main navigation.
+13. Jump to experience from the main navigation.
+14. Copy the contact email with visible confirmation.
+15. Share the portfolio with native sharing or a link-copy fallback.
+
+### Security and reliability
+
+1. Production Content Security Policy limits active content to the site; Vercel Toolbar hosts are allowed only in Preview.
+2. The policy blocks plug-in object content.
+3. The policy blocks embedding through `frame-ancestors`.
+4. `X-Frame-Options` also denies framing.
+5. HSTS forces HTTPS in production.
+6. MIME sniffing is disabled.
+7. Referrer details are limited on cross-origin navigation.
+8. Camera access is disabled.
+9. Microphone access is disabled.
+10. Geolocation is disabled.
+11. Clipboard writes are restricted to the same origin.
+12. Web sharing is restricted to the same origin.
+13. Cross-origin opener access is isolated.
+14. GitHub Actions use read-only repository contents permission.
+15. CI runs a high-severity production dependency audit.
+
+### UI and accessibility
+
+1. A skip link moves keyboard users past the header.
+2. The page uses a main landmark.
+3. The document has a single primary heading.
+4. Sections have descriptive headings and labels.
+5. Navigation has an accessible name.
+6. The search input has a screen-reader label.
+7. Filter buttons announce their selected state.
+8. Search result changes are announced politely.
+9. Empty results explain how to recover.
+10. Links and buttons expose visible keyboard focus.
+11. Mobile navigation targets meet a 44px minimum.
+12. Primary actions have a 48px minimum touch height.
+13. The layout adapts at mobile breakpoints without horizontal overflow.
+14. Motion is reduced when the user requests reduced motion.
+15. The hero image uses responsive sizes, priority loading, and meaningful alternative text.
+
+### Distinctive details
+
+1. The hero uses an asymmetric split layout.
+2. Headline emphasis keeps the same font family.
+3. A single cobalt accent unifies the page.
+4. The hero features a real project dashboard screenshot.
+5. The screenshot has a numbered project caption.
+6. Hero copy enters with a short rise animation.
+7. The screenshot settles with a clipped reveal.
+8. Project rows reveal as they enter the viewport where supported.
+9. Project reveals use a restrained stagger.
+10. A thin accent line grows across hovered project rows.
+11. Project rows shift slightly on hover or keyboard focus.
+12. Primary buttons lift slightly on hover.
+13. Arrow icons move on hover to signal navigation.
+14. Selected filter buttons invert to the page’s dark ink color.
+15. A small accent marker highlights the selected-work note.
+
+Live project links are included only when the personal repository lists a homepage. CineScope is source-linked until its live endpoint responds reliably.
 
 ## Run locally
 
