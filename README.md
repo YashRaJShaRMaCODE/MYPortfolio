@@ -35,7 +35,7 @@ The portfolio uses server-rendered content and lightweight CSS. The 3D scene and
 
 ### Security and reliability
 
-1. Production Content Security Policy limits active content to the site origin.
+1. Production Content Security Policy limits active content to the site; Vercel Toolbar hosts are allowed only in Preview.
 2. The policy blocks plug-in object content.
 3. The policy blocks embedding through `frame-ancestors`.
 4. `X-Frame-Options` also denies framing.
