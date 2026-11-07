@@ -87,7 +87,7 @@ The portfolio uses server-rendered content and lightweight CSS. The 3D scene and
 14. Selected filter buttons invert to the page’s dark ink color.
 15. A small accent marker highlights the selected-work note.
 
-Live project links are included only when the personal repository lists a homepage. CineScope is source-linked until its live endpoint responds reliably.
+Live project links are included only when the personal repository lists a homepage. CineScope's published homepage is live and appears in the selected-work list.
 
 ## Run locally
 

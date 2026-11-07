@@ -49,6 +49,7 @@ const projects: PortfolioProject[] = [
     stack: "Django · MySQL · JavaScript",
     category: "Media",
     href: "https://github.com/YashRaJShaRMaCODE/Cinescope",
+    liveHref: "https://cinescope-3pc5.onrender.com",
   },
   {
     name: "JobMail Tracker",
