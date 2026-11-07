@@ -2,7 +2,7 @@
 
 Personal portfolio for Yash Raj Sharma, focused on shipped products, engineering experience, and a direct contact path.
 
-**Live portfolio:** [my-portfolio-yash-raj-sharmas-projects-c76761bc.vercel.app](https://my-portfolio-yash-raj-sharmas-projects-c76761bc.vercel.app)
+**Live portfolio:** [my-portfolio-ten-tau-95.vercel.app](https://my-portfolio-ten-tau-95.vercel.app)
 
 ## Stack
 
