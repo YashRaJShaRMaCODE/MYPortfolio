@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Github, Search } from "lucide-react";
 
 export type PortfolioProject = {
@@ -16,6 +16,7 @@ export type PortfolioProject = {
 export default function WorkShelf({ projects }: { projects: PortfolioProject[] }) {
   const [category, setCategory] = useState("All work");
   const [query, setQuery] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
   const categories = ["All work", ...new Set(projects.map((project) => project.category))];
   const normalizedQuery = query.trim().toLowerCase();
   const filtered = projects.map((project, index) => ({ project, index })).filter(({ project }) => {
@@ -23,6 +24,27 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
     const searchable = `${project.name} ${project.type} ${project.description} ${project.stack}`.toLowerCase();
     return matchesCategory && searchable.includes(normalizedQuery);
   });
+
+  useEffect(() => {
+    function handleSearchShortcut(event: KeyboardEvent) {
+      const target = event.target;
+      const isEditing = target instanceof HTMLElement && (
+        target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)
+      );
+
+      if (event.key === "/" && !isEditing && !event.metaKey && !event.ctrlKey && !event.altKey) {
+        event.preventDefault();
+        searchRef.current?.focus();
+      }
+
+      if (event.key === "Escape" && target === searchRef.current && query) {
+        setQuery("");
+      }
+    }
+
+    window.addEventListener("keydown", handleSearchShortcut);
+    return () => window.removeEventListener("keydown", handleSearchShortcut);
+  }, [query]);
 
   return (
     <>
@@ -46,9 +68,11 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
           <input
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search projects or tools"
+            ref={searchRef}
             type="search"
             value={query}
           />
+          <span aria-hidden="true" className="search-shortcut"><kbd>/</kbd></span>
           {query && (
             <button aria-label="Clear project search" onClick={() => setQuery("")} type="button">
               Clear

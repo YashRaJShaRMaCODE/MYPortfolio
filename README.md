@@ -17,7 +17,7 @@ The portfolio uses server-rendered content and lightweight CSS. The 3D scene and
 
 ### Productivity
 
-1. Search by project name.
+1. Search by project name, type, description, or stack; press `/` to focus and `Esc` to clear.
 2. Search by project type.
 3. Search project descriptions.
 4. Search technology stacks.

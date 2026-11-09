@@ -363,6 +363,23 @@ input:focus-visible {
   color: var(--muted);
 }
 
+.search-shortcut {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.search-shortcut kbd {
+  display: inline-grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--white);
+  font: inherit;
+}
+
 .project-search button,
 .empty-projects button {
   border: 0;
@@ -819,6 +836,10 @@ input:focus-visible {
 
   .project-search {
     min-height: 46px;
+  }
+
+  .search-shortcut {
+    display: none;
   }
 
   .project-grid {
