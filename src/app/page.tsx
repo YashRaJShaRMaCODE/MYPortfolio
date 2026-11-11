@@ -100,7 +100,6 @@ const capabilities = [
 
 export default function PortfolioPage() {
   const personSchema = {
-    "@context": "https://schema.org",
     "@type": "Person",
     name: "Yash Raj Sharma",
     jobTitle: "Full-Stack Developer",
@@ -112,11 +111,31 @@ export default function PortfolioPage() {
     ],
     knowsAbout: ["Product engineering", "Backend systems", "Data platforms"],
   };
+  const projectsSchema = {
+    "@type": "ItemList",
+    name: "Selected projects by Yash Raj Sharma",
+    numberOfItems: projects.length,
+    itemListElement: projects.map((project, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "CreativeWork",
+        name: project.name,
+        description: project.description,
+        url: project.liveHref ?? project.href,
+      },
+    })),
+  };
 
   return (
     <main id="top">
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [personSchema, projectsSchema],
+          }).replace(/</g, "\\u003c"),
+        }}
         type="application/ld+json"
       />
       <a className="skip-link" href="#main-content">Skip to content</a>
