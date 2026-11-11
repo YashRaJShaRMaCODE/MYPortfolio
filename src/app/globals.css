@@ -392,9 +392,31 @@ input:focus-visible {
 }
 
 .result-count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   margin: 0 0 14px;
   color: var(--muted);
   font-size: 0.72rem;
+}
+
+.share-filter-link {
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.share-filter-link:focus-visible {
+  border-radius: 2px;
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .empty-projects {

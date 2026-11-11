@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, Github, Search } from "lucide-react";
 
 export type PortfolioProject = {
@@ -16,14 +16,54 @@ export type PortfolioProject = {
 export default function WorkShelf({ projects }: { projects: PortfolioProject[] }) {
   const [category, setCategory] = useState("All work");
   const [query, setQuery] = useState("");
+  const [filtersReady, setFiltersReady] = useState(false);
+  const [shareMessage, setShareMessage] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
-  const categories = ["All work", ...new Set(projects.map((project) => project.category))];
+  const categories = useMemo(() => ["All work", ...new Set(projects.map((project) => project.category))], [projects]);
   const normalizedQuery = query.trim().toLowerCase();
+  const hasActiveFilters = category !== "All work" || Boolean(normalizedQuery);
   const filtered = projects.map((project, index) => ({ project, index })).filter(({ project }) => {
     const matchesCategory = category === "All work" || project.category === category;
     const searchable = `${project.name} ${project.type} ${project.description} ${project.stack}`.toLowerCase();
     return matchesCategory && searchable.includes(normalizedQuery);
   });
+
+  useEffect(() => {
+    function syncFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const requestedCategory = params.get("type") ?? "";
+      setCategory(categories.includes(requestedCategory) ? requestedCategory : "All work");
+      setQuery((params.get("q") ?? "").slice(0, 80));
+      setFiltersReady(true);
+    }
+
+    syncFromUrl();
+    window.addEventListener("popstate", syncFromUrl);
+    return () => window.removeEventListener("popstate", syncFromUrl);
+  }, [categories]);
+
+  useEffect(() => {
+    if (!filtersReady) return;
+    const url = new URL(window.location.href);
+    if (normalizedQuery) url.searchParams.set("q", query.slice(0, 80));
+    else url.searchParams.delete("q");
+    if (category !== "All work") url.searchParams.set("type", category);
+    else url.searchParams.delete("type");
+    const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+    if (`${window.location.pathname}${window.location.search}${window.location.hash}` !== nextUrl) {
+      window.history.replaceState(null, "", nextUrl);
+    }
+  }, [category, filtersReady, normalizedQuery, query]);
+
+  async function copyFilteredLink() {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setShareMessage("Link copied");
+    } catch {
+      setShareMessage("Could not copy link");
+    }
+    window.setTimeout(() => setShareMessage(""), 1800);
+  }
 
   useEffect(() => {
     function handleSearchShortcut(event: KeyboardEvent) {
@@ -67,6 +107,7 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
           <span className="visually-hidden">Search selected projects</span>
           <input
             onChange={(event) => setQuery(event.target.value)}
+            maxLength={80}
             placeholder="Search projects or tools"
             ref={searchRef}
             type="search"
@@ -82,6 +123,11 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
       </div>
       <p aria-live="polite" className="result-count">
         {filtered.length} {filtered.length === 1 ? "project" : "projects"}
+        {hasActiveFilters && (
+          <button className="share-filter-link" onClick={copyFilteredLink} type="button">
+            {shareMessage || "Copy filtered link"}
+          </button>
+        )}
       </p>
       {filtered.length ? (
         <div className="project-grid">
