@@ -29,15 +29,22 @@ export function SharePortfolio() {
   async function share() {
     const data = { title: document.title, url: window.location.href };
     try {
-      if (navigator.share) await navigator.share(data);
-      else {
+      if (navigator.share) {
+        await navigator.share(data);
+        return;
+      }
+      await navigator.clipboard.writeText(data.url);
+      setMessage("Link copied");
+    } catch (error) {
+      if (error instanceof Error && error.name === "AbortError") return;
+      try {
         await navigator.clipboard.writeText(data.url);
         setMessage("Link copied");
-        window.setTimeout(() => setMessage(""), 1800);
+      } catch {
+        setMessage("Could not share right now");
       }
-    } catch (error) {
-      if (error instanceof Error && error.name !== "AbortError") setMessage("Could not share right now");
     }
+    window.setTimeout(() => setMessage(""), 1800);
   }
 
   return (
