@@ -19,6 +19,7 @@ function projectAnchor(name: string) {
 
 export default function WorkShelf({ projects }: { projects: PortfolioProject[] }) {
   const [category, setCategory] = useState("All work");
+  const [liveOnly, setLiveOnly] = useState(false);
   const [query, setQuery] = useState("");
   const [filtersReady, setFiltersReady] = useState(false);
   const [shareMessage, setShareMessage] = useState("");
@@ -27,12 +28,13 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
   const searchRef = useRef<HTMLInputElement>(null);
   const categories = useMemo(() => ["All work", ...new Set(projects.map((project) => project.category))], [projects]);
   const normalizedQuery = query.trim().toLowerCase();
-  const hasActiveFilters = category !== "All work" || Boolean(normalizedQuery);
+  const hasActiveFilters = category !== "All work" || liveOnly || Boolean(normalizedQuery);
   const filtered = projects.map((project, index) => ({ project, index })).filter(({ project }) => {
     const matchesCategory = category === "All work" || project.category === category;
+    const matchesLive = !liveOnly || Boolean(project.liveHref);
     const repository = project.href.split("/").filter(Boolean).at(-1) ?? "";
     const searchable = `${project.name} ${repository} ${project.type} ${project.description} ${project.stack}`.toLowerCase();
-    return matchesCategory && searchable.includes(normalizedQuery);
+    return matchesCategory && matchesLive && searchable.includes(normalizedQuery);
   });
 
   useEffect(() => {
@@ -40,6 +42,7 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
       const params = new URLSearchParams(window.location.search);
       const requestedCategory = params.get("type") ?? "";
       setCategory(categories.includes(requestedCategory) ? requestedCategory : "All work");
+      setLiveOnly(params.get("live") === "1");
       setQuery((params.get("q") ?? "").slice(0, 80));
       setFiltersReady(true);
     }
@@ -56,11 +59,13 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
     else url.searchParams.delete("q");
     if (category !== "All work") url.searchParams.set("type", category);
     else url.searchParams.delete("type");
+    if (liveOnly) url.searchParams.set("live", "1");
+    else url.searchParams.delete("live");
     const nextUrl = `${url.pathname}${url.search}${url.hash}`;
     if (`${window.location.pathname}${window.location.search}${window.location.hash}` !== nextUrl) {
       window.history.replaceState(null, "", nextUrl);
     }
-  }, [category, filtersReady, normalizedQuery, query]);
+  }, [category, filtersReady, liveOnly, normalizedQuery, query]);
 
   async function copyFilteredLink() {
     try {
@@ -114,7 +119,7 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
   return (
     <>
       <div className="work-tools">
-        <div aria-label="Filter projects by type" className="work-filters" role="group">
+        <div aria-label="Filter projects by type or live demo availability" className="work-filters" role="group">
           {categories.map((item) => (
             <button
               aria-pressed={category === item}
@@ -126,6 +131,14 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
               {item}
             </button>
           ))}
+          <button
+            aria-pressed={liveOnly}
+            className="filter-button"
+            onClick={() => setLiveOnly((current) => !current)}
+            type="button"
+          >
+            Live demos
+          </button>
         </div>
         <label className="project-search">
           <Search aria-hidden="true" size={16} />
@@ -198,7 +211,7 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
       ) : (
         <div className="empty-projects">
           <p>{query.trim() ? `No projects match “${query.trim()}”.` : "No projects in this category yet."}</p>
-          <button onClick={() => { setQuery(""); setCategory("All work"); }} type="button">
+          <button onClick={() => { setQuery(""); setCategory("All work"); setLiveOnly(false); }} type="button">
             Reset filters
           </button>
         </div>
