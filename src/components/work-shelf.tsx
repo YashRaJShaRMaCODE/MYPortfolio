@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowUpRight, Github, Search } from "lucide-react";
+import { ArrowUpRight, Github, Link2, Search } from "lucide-react";
 
 export type PortfolioProject = {
   name: string;
@@ -13,11 +13,17 @@ export type PortfolioProject = {
   liveHref?: string;
 };
 
+function projectAnchor(name: string) {
+  return `project-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+}
+
 export default function WorkShelf({ projects }: { projects: PortfolioProject[] }) {
   const [category, setCategory] = useState("All work");
   const [query, setQuery] = useState("");
   const [filtersReady, setFiltersReady] = useState(false);
   const [shareMessage, setShareMessage] = useState("");
+  const [copiedProject, setCopiedProject] = useState("");
+  const [projectLinkMessage, setProjectLinkMessage] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
   const categories = useMemo(() => ["All work", ...new Set(projects.map((project) => project.category))], [projects]);
   const normalizedQuery = query.trim().toLowerCase();
@@ -63,6 +69,24 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
       setShareMessage("Could not copy link");
     }
     window.setTimeout(() => setShareMessage(""), 1800);
+  }
+
+  async function copyProjectLink(name: string) {
+    const url = new URL(window.location.href);
+    url.search = "";
+    url.hash = projectAnchor(name);
+    try {
+      await navigator.clipboard.writeText(url.toString());
+      setCopiedProject(name);
+      setProjectLinkMessage(`Direct link copied for ${name}.`);
+    } catch {
+      setCopiedProject("");
+      setProjectLinkMessage(`Could not copy a direct link for ${name}.`);
+    }
+    window.setTimeout(() => {
+      setCopiedProject("");
+      setProjectLinkMessage("");
+    }, 1800);
   }
 
   useEffect(() => {
@@ -132,7 +156,7 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
       {filtered.length ? (
         <div className="project-grid">
           {filtered.map(({ project, index }) => (
-            <article className="project" key={project.name}>
+            <article className="project" id={projectAnchor(project.name)} key={project.name}>
               <div className="project-topline">
                 <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
                 <span>{project.type}</span>
@@ -142,6 +166,14 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
               <div className="project-footer">
                 <span className="project-stack">{project.stack}</span>
                 <div className="project-links">
+                  <button
+                    aria-label={copiedProject === project.name ? `Direct link copied for ${project.name}` : `Copy direct link to ${project.name}`}
+                    className="project-link project-permalink"
+                    onClick={() => copyProjectLink(project.name)}
+                    type="button"
+                  >
+                    <Link2 aria-hidden="true" size={15} /> {copiedProject === project.name ? "Copied" : "Copy link"}
+                  </button>
                   {project.liveHref && (
                     <a className="project-link" href={project.liveHref} rel="noreferrer" target="_blank">
                       Visit live <ArrowUpRight aria-hidden="true" size={15} />
@@ -170,6 +202,7 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
           </button>
         </div>
       )}
+      <p aria-live="polite" className="visually-hidden" role="status">{projectLinkMessage}</p>
     </>
   );
 }

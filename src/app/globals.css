@@ -472,6 +472,7 @@ input:focus-visible {
 .project {
   position: relative;
   display: flex;
+  scroll-margin-top: 90px;
   min-height: 310px;
   flex-direction: column;
   align-items: flex-start;
@@ -570,6 +571,15 @@ input:focus-visible {
 .project-links .project-link {
   min-height: 38px;
   padding: 0 4px;
+}
+
+.project-permalink {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 650;
 }
 
 .project-link svg:last-child {

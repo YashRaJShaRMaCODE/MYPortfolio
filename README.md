@@ -19,7 +19,7 @@ The portfolio uses server-rendered content and lightweight CSS. The 3D scene and
 
 1. Search by project name, type, description, or stack; press `/` to focus and `Esc` to clear.
 2. Share the current search and category as a direct link, or copy it after filtering.
-3. Search project descriptions.
+3. Copy a stable direct link to any selected project.
 4. Search technology stacks.
 5. Filter work by category.
 6. See the live result count.
