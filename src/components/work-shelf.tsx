@@ -30,7 +30,8 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
   const hasActiveFilters = category !== "All work" || Boolean(normalizedQuery);
   const filtered = projects.map((project, index) => ({ project, index })).filter(({ project }) => {
     const matchesCategory = category === "All work" || project.category === category;
-    const searchable = `${project.name} ${project.type} ${project.description} ${project.stack}`.toLowerCase();
+    const repository = project.href.split("/").filter(Boolean).at(-1) ?? "";
+    const searchable = `${project.name} ${repository} ${project.type} ${project.description} ${project.stack}`.toLowerCase();
     return matchesCategory && searchable.includes(normalizedQuery);
   });
 
@@ -128,11 +129,11 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
         </div>
         <label className="project-search">
           <Search aria-hidden="true" size={16} />
-          <span className="visually-hidden">Search selected projects</span>
+          <span className="visually-hidden">Search project names, repository names, or tools</span>
           <input
             onChange={(event) => setQuery(event.target.value)}
             maxLength={80}
-            placeholder="Search projects or tools"
+            placeholder="Search projects, repos, or tools"
             ref={searchRef}
             type="search"
             value={query}
