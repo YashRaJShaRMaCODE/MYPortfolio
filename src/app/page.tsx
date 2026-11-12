@@ -153,7 +153,7 @@ export default function PortfolioPage() {
         </a>
       </header>
 
-      <section aria-labelledby="hero-title" className="hero section-wrap" id="main-content">
+      <section aria-labelledby="hero-title" className="hero section-wrap" id="main-content" tabIndex={-1}>
         <div className="hero-copy">
           <p className="eyebrow">Full-stack developer · Product builder</p>
           <h1 id="hero-title">
