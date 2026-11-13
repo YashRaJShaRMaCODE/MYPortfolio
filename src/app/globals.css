@@ -334,6 +334,18 @@ input:focus-visible {
   color: var(--white);
 }
 
+.filter-count {
+  margin-left: 3px;
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.72;
+}
+
+.project-category {
+  color: var(--accent);
+  font-weight: 700;
+}
+
 .project-search {
   display: flex;
   min-width: min(260px, 100%);
@@ -936,8 +948,13 @@ input:focus-visible {
   *::before,
   *::after {
     scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .project:hover,
+  .project:focus-within,
+  .button:hover {
+    transform: none;
   }
 }

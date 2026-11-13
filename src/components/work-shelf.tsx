@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, Github, Link2, Search } from "lucide-react";
+import { matchesPortfolioProject } from "../lib/portfolio-search.mjs";
 
 export type PortfolioProject = {
   name: string;
@@ -30,11 +31,7 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
   const normalizedQuery = query.trim().toLowerCase();
   const hasActiveFilters = category !== "All work" || liveOnly || Boolean(normalizedQuery);
   const filtered = projects.map((project, index) => ({ project, index })).filter(({ project }) => {
-    const matchesCategory = category === "All work" || project.category === category;
-    const matchesLive = !liveOnly || Boolean(project.liveHref);
-    const repository = project.href.split("/").filter(Boolean).at(-1) ?? "";
-    const searchable = `${project.name} ${repository} ${project.type} ${project.description} ${project.stack}`.toLowerCase();
-    return matchesCategory && matchesLive && searchable.includes(normalizedQuery);
+    return matchesPortfolioProject(project, normalizedQuery, category, liveOnly);
   });
 
   useEffect(() => {
@@ -140,7 +137,7 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
               onClick={() => setCategory(item)}
               type="button"
             >
-              {item}
+              {item} <span aria-hidden="true" className="filter-count">{String(item === "All work" ? projects.length : projects.filter((project) => project.category === item).length).padStart(2, "0")}</span>
             </button>
           ))}
           <button
@@ -149,8 +146,13 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
             onClick={() => setLiveOnly((current) => !current)}
             type="button"
           >
-            Live demos
+            Live demos <span aria-hidden="true" className="filter-count">{String(projects.filter((project) => project.liveHref).length).padStart(2, "0")}</span>
           </button>
+          {hasActiveFilters && (
+            <button className="filter-button clear-filters" onClick={() => { setQuery(""); setCategory("All work"); setLiveOnly(false); }} type="button">
+              Clear filters
+            </button>
+          )}
         </div>
         <label className="project-search">
           <Search aria-hidden="true" size={16} />
@@ -185,6 +187,7 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
             <article className="project" id={projectAnchor(project.name)} key={project.name}>
               <div className="project-topline">
                 <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
+                <span className="project-category">{project.category}</span>
                 <span>{project.type}</span>
               </div>
               <h3>{project.name}</h3>

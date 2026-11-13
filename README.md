@@ -32,6 +32,9 @@ The portfolio uses server-rendered content and lightweight CSS. The 3D scene and
 13. Jump to experience from the main navigation.
 14. Copy the contact email with visible confirmation.
 15. Share the portfolio with native sharing or a link-copy fallback.
+16. Search by project category and scan category counts before opening a project.
+17. Clear all active work filters in one action.
+18. Jump to the contact section directly from the main navigation.
 
 ### Security and reliability
 
@@ -66,7 +69,7 @@ The portfolio uses server-rendered content and lightweight CSS. The 3D scene and
 11. Mobile navigation targets meet a 44px minimum.
 12. Primary actions have a 48px minimum touch height.
 13. The layout adapts at mobile breakpoints without horizontal overflow.
-14. Motion is reduced when the user requests reduced motion.
+14. Motion is disabled when the user requests reduced motion.
 15. The hero image uses responsive sizes, priority loading, and meaningful alternative text.
 
 ### Distinctive details
@@ -105,6 +108,7 @@ Edit `src/app/page.tsx` to update selected projects, experience, capabilities, c
 ## Checks
 
 ```bash
+npm test
 npm run lint
 npm run typecheck
 npm run build

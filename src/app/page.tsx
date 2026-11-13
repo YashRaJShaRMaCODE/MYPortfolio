@@ -147,6 +147,7 @@ export default function PortfolioPage() {
           <a href="#work">Work</a>
           <a href="#experience">Experience</a>
           <a href="#about">About</a>
+          <a href="#contact">Contact</a>
         </nav>
         <a className="header-contact" href="mailto:yashrajsharma786jmd@gmail.com">
           Let’s talk <ArrowUpRight aria-hidden="true" size={15} />
