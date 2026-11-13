@@ -67,12 +67,24 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
     }
   }, [category, filtersReady, liveOnly, normalizedQuery, query]);
 
-  async function copyFilteredLink() {
+  async function shareFilteredLink() {
+    const url = window.location.href;
     try {
-      await navigator.clipboard.writeText(window.location.href);
-      setShareMessage("Link copied");
-    } catch {
-      setShareMessage("Could not copy link");
+      if (navigator.share) {
+        await navigator.share({ title: `Selected projects · ${document.title}`, url });
+        setShareMessage("Link shared");
+      } else {
+        await navigator.clipboard.writeText(url);
+        setShareMessage("Link copied");
+      }
+    } catch (error) {
+      if (error instanceof Error && error.name === "AbortError") return;
+      try {
+        await navigator.clipboard.writeText(url);
+        setShareMessage("Link copied");
+      } catch {
+        setShareMessage("Could not share right now");
+      }
     }
     window.setTimeout(() => setShareMessage(""), 1800);
   }
@@ -162,8 +174,8 @@ export default function WorkShelf({ projects }: { projects: PortfolioProject[] }
       <p aria-live="polite" className="result-count">
         {filtered.length} {filtered.length === 1 ? "project" : "projects"}
         {hasActiveFilters && (
-          <button className="share-filter-link" onClick={copyFilteredLink} type="button">
-            {shareMessage || "Copy filtered link"}
+          <button className="share-filter-link" onClick={shareFilteredLink} type="button">
+            {shareMessage || "Share filtered work"}
           </button>
         )}
       </p>
